@@ -1,0 +1,15 @@
+[
+{
+   "id":0,
+   "name":"pen",
+   "price":"20",
+   "brand":"no brand"
+},
+{
+    "name": "Product 2",
+    "price": 20,
+    "brand": "Brand 2",
+    "images": "['image3.jpg', 'image4.jpg']",
+    "reviews": "Sample review for Product 2"
+}
+]
