@@ -13,7 +13,7 @@ const porductSchema =new mongoose.Schema({
     },
     price:{
         type: Number,
-        // required:['A product must have a price']
+         required:['A product must have a price']
     },
     rating:{
         type:Number,
@@ -21,7 +21,7 @@ const porductSchema =new mongoose.Schema({
     },
     brand:{
         type: String,
-        // required:['A product must have a brand name']
+         required:['A product must have a brand name']
     },
     images:[String],
     reviews:{
@@ -29,7 +29,21 @@ const porductSchema =new mongoose.Schema({
 
     },color:{
         type: String
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+        select: false
+      },
+      startDates:{
+        type: Date,
+        default: Date.now(),
+        select: false
+      },
+      secretTour: {
+        type: Boolean,
+        default: false
+      }
 
 
 })

@@ -42,5 +42,12 @@ exports.getProduct = catchAsync(async (req, res, next) => {
 
 })
 
+exports.deleteProduct = catchAsync(async(req, res, next)=>{
+  const product =  await Product.findByIdAndDelete(req.params.id)
+  res.status(200).json({
+    status:'success',
+    data:null
+  });
+})
 
 

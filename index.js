@@ -1,9 +1,15 @@
 const express = require('express')
+process.on('uncaughtException', err =>{
+    console.log('uncaught exception : shutting down')
+    console.log(err.name, err.message);
+        process.exit(1);
+})
 const app = express()
 const AppError = require('./utils/appError')
 const globalErrorHandler = require('./controller/errorController');
 const port = 8000;
 const productRouter = require('./routes/productRoutes')
+const userRoute = require('./routes/userRoute')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv');
 dotenv.config({path:'./config.env'});
@@ -17,7 +23,15 @@ mongoose.connect(DB)
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
- app.use('/api/product', productRouter)
+
+app.use((req, res, next)=>{
+    // console.log(req.headers)
+    next()
+})
+
+app.use('/api/product', productRouter)
+app.use('/api/user', userRoute)
+
 
 
 //  app.all('*',(req, res , next)=>{
@@ -56,12 +70,3 @@ process.on('unhandledRejection', err =>{
     });   
 });
 
-
-process.on('uncaughtException', err =>{
-    console.log('uncaught exception : shutting down')
-    console.log(err.name, err.message);
-    server.close(()=>{
-        process.exit(1);
-    });
-})
-console.log(asdasds)
