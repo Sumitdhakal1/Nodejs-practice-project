@@ -10,6 +10,10 @@ const handleDuplicateFieldsDB = err =>{
     return new AppError(message, 400)
 }
 
+const handelJWTError = () => new AppError('Invalid Token.Please login again')
+
+const handelExpiredError = () => new AppError('Your Token has expired.please login again', 401)
+
 const handelValidationErrorDB = err =>{
     const error = Object.values(err.errors).map(el=> el.message)
   const message=`Invalid input data. ${errors.join('.')}`
@@ -64,7 +68,10 @@ module.exports = (err, req, res, next) => {
         if(error.name === 'CastError') error = handelCastErrorDB(error)
         if (error.code === 11000) error = handleDuplicateFieldsDB(error);
         if(error.name === 'ValidationError') error = handelValidationErrorDB(error);
+        if(error.name === 'JsonWebTokenError') error = handelJWTError(error);
+        if(error.name === 'TokenExpiredError') error = handelExpiredError(error);
         sendErrorProd(error, res)
+
     }
 
 }
